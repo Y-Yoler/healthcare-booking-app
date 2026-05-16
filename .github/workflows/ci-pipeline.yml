@@ -1,0 +1,34 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - feature-login-page
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check index.html exists
+        run: test -f index.html
+
+      - name: Check style.css exists
+        run: test -f style.css
+
+      - name: Check README.md exists
+        run: test -f README.md
+
+      - name: Check login heading
+        run: grep -q "Healthcare Appointment Login" index.html
+
+      - name: Success message
+        run: echo "CI pipeline completed successfully"
+      
